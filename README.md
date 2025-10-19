@@ -1,118 +1,135 @@
-🌾 Agri-Sentio Backend API
-Crop Disease Detection & Farm Analytics Platform
+# 🌾 Agri-Sentio Backend API
+**Crop Disease Detection & Farm Analytics Platform**
 
-📘 Overview
-Agri-Sentio is a modern AI-powered crop disease detection and farm management platform designed to support Ghana's agricultural sector. This repository contains the complete Django REST Framework backend, which provides robust APIs for user authentication, farm management, crop diagnostics, taxonomy management, administrative analytics, and TensorFlow-based disease prediction.
+---
 
-🧩 Features
-Module	Description
-Accounts	Custom user model with JWT authentication implementation
-Farms: Farm registration and management with regional tracking capabilities
-Diagnostics	AI-powered crop disease predictions using TensorFlow models
-Taxonomy: Comprehensive crop, pest, and disease relationship management
-Analytics	Admin-only endpoints for biosecurity monitoring and platform statistics
-Core	Shared utilities, including system health checks and AI model integration
-⚙️ Technology Stack
-Backend Framework: Django 5.2 with Django REST Framework
+## 📘 Overview
 
-AI/ML Integration: TensorFlow, NumPy, and Pillow for image processing
+Agri-Sentio is an AI-powered crop disease detection and farm management platform.  
+This backend system is built with **Django REST Framework** and integrates **TensorFlow** for intelligent crop disease classification.
 
-Authentication: JSON Web Tokens (JWT) via SimpleJWT
+It provides secure user authentication, farm management, diagnostic analysis, taxonomy data, and admin analytics dashboards.
 
-API Documentation: drf-spectacular with Swagger and Redoc interfaces
+---
 
-Database: SQLite (development), configurable for PostgreSQL via environment variables
+## 🧩 Features
 
-CORS: Enabled for all origins during local development
+| Module | Description |
+|--------|--------------|
+| **Accounts** | Custom user model with JWT authentication (SimpleJWT). |
+| **Farms** | Register, manage, and track farms by region, district, and ownership. |
+| **Diagnostics** | AI-powered crop disease predictions using TensorFlow `.h5` model. |
+| **Taxonomy** | Manages crops, pests, and disease relationships. |
+| **Analytics** | Admin-only endpoints for biosecurity and platform summaries. |
+| **Core** | Shared utilities including health checks and TensorFlow model loader. |
 
-🚀 Getting Started
-1️⃣ Clone the Repository
-bash
-git clone https://github.com/yennulomlarri/agri-sentio.git
+---
+
+## ⚙️ Tech Stack
+
+- **Backend Framework:** Django 5.2 + Django REST Framework  
+- **AI/ML Integration:** TensorFlow + NumPy + Pillow  
+- **Authentication:** JWT (via SimpleJWT)  
+- **API Docs:** drf-spectacular (Swagger & Redoc)  
+- **Database:** SQLite (default), ready for PostgreSQL  
+- **CORS:** Enabled for development  
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/yourusername/agri-sentio-backend.git
 cd agri-sentio-backend
 2️⃣ Create and Activate Virtual Environment
 bash
+Copy code
 python -m venv venv
-venv\Scripts\activate  # Windows
+venv\Scripts\activate      # Windows
+# or
+source venv/bin/activate   # macOS/Linux
 3️⃣ Install Dependencies
 bash
+Copy code
 pip install -r requirements.txt
-If you need to generate a requirements file:
+If missing, generate one:
 
 bash
+Copy code
 pip freeze > requirements.txt
 🧱 Environment Configuration
-Create a .env file in the project root with the following variables:
+Create a .env file in the project root:
 
-env
-SECRET_KEY=django-insecure-agri-sentio-backend-2025
+bash
+Copy code
+SECRET_KEY=django-insecure-agri-sentio-key
 DEBUG=True
 ALLOWED_HOSTS=127.0.0.1,localhost
 DATABASE_URL=sqlite:///db.sqlite3
+ACCESS_TOKEN_LIFETIME=3600
+REFRESH_TOKEN_LIFETIME=86400
+You can also add a public .env.example for reference.
+
 🧠 AI Model Integration
-The platform integrates TensorFlow for intelligent disease prediction through core/ml_utils.py. Place your trained model file at:
+The TensorFlow integration is handled in core/ml_utils.py.
 
-text
+Place your trained model file at:
+
+bash
+Copy code
 core/crop_disease_model.h5
-The system includes a mock model loader for development and testing purposes.
+If you don’t have one yet, a mock-compatible structure allows simulated predictions until deployment.
 
-📊 API Endpoints
-Authentication Routes
+📊 Admin Analytics Endpoints
 Endpoint	Method	Description
-/api/accounts/register/	POST	Register new user accounts
-/api/accounts/login/	POST	Obtain JWT authentication tokens
-/api/accounts/profile/	GET	Retrieve authenticated user information
-Admin Analytics Endpoints
-Endpoint	Method	Description
-/api/admin/analytics/	GET	Analytics API overview and available endpoints
-/api/admin/analytics/summary/	GET	System statistics (users, farms, diagnoses)
-/api/admin/analytics/biosecurity/	GET	Regional disease outbreak aggregation
-Authentication Required: Authorization: Bearer <your_access_token>
+/api/admin/analytics/summary/	GET	Total users, farms, and diagnoses.
+/api/admin/analytics/biosecurity/	GET	Diagnosis counts grouped by region and district.
 
-Core Utilities
-/api/core/ - Core API utilities and health checks
+🛡️ Requires admin JWT token:
+
+bash
+Copy code
+Authorization: Bearer <your_access_token>
+🧾 Authentication Routes
+Endpoint	Method	Description
+/api/accounts/register/	POST	Register a new user.
+/api/accounts/login/	POST	Obtain JWT tokens.
+/api/accounts/profile/	GET	Get user profile data.
+
+💡 Core Utilities
+Endpoint	Description
+/api/core/health/	Simple health check endpoint.
 
 🧰 Development Commands
 bash
-# Start development server
+Copy code
+# Run development server
 python manage.py runserver
 
-# Database migrations
+# Make and apply migrations
 python manage.py makemigrations
 python manage.py migrate
 
-# Administrative access
+# Create superuser
 python manage.py createsuperuser
-
-# Development tools
-python manage.py shell
-🔬 Testing
-Test API endpoints using curl or Postman:
-
-bash
-# Test analytics endpoint
-curl http://127.0.0.1:8000/api/admin/analytics/
-
-# Test authentication
-curl -X POST http://127.0.0.1:8000/api/accounts/login/ \
-  -H "Content-Type: application/json" \
-  -d '{"username": "admin", "password": "yourpassword"}'
 🧩 API Documentation
-Access comprehensive API documentation through:
+Open in browser:
 
-Swagger UI: http://127.0.0.1:8000/api/docs/
+Swagger UI → http://127.0.0.1:8000/api/docs/
 
-Redoc: http://127.0.0.1:8000/api/redoc/
+Redoc → http://127.0.0.1:8000/api/redoc/
 
-API Schema: http://127.0.0.1:8000/api/schema/
-
-🏗 Project Architecture
-text
+🏗 Project Structure
+bash
+Copy code
 agri-sentio-backend/
+│
 ├── agrisentio/
 │   ├── settings.py
 │   ├── urls.py
 │   └── wsgi.py
+│
 ├── accounts/
 ├── farms/
 ├── diagnostics/
@@ -121,27 +138,36 @@ agri-sentio-backend/
 ├── core/
 │   ├── crop_disease_model.h5
 │   └── ml_utils.py
+│
 ├── manage.py
 └── .env
-Each module maintains independent URL routing, views, and models for optimal modular organization.
+🔬 Testing
+Use Postman or cURL for endpoint testing.
 
+Example login:
+
+bash
+Copy code
+curl -X POST http://127.0.0.1:8000/api/accounts/login/ \
+  -H "Content-Type: application/json" \
+  -d '{"email": "admin@example.com", "password": "yourpassword"}'
 🔮 Future Enhancements
-Advanced role-based permission systems
+Role-based access (Admin / Farmer)
 
-Production-ready TensorFlow model deployment
+Real TensorFlow model deployment
 
-Comprehensive data visualization dashboard
+Interactive data visualization dashboards
 
-Frontend integration with modern frameworks
+React frontend integration
 
-Docker containerization and CI/CD pipeline implementation
+Docker & CI/CD setup
 
 🧑‍💻 Author
-Mateiyendou Mantot Kombat
-📧 yennulomlarri@gmail.com
+Mateiyendou Mantot Kombat (Mathias)
+📧 Email: yennulomlarri@gmail.com
 🎓 BSc. Statistics & Computer Science
 🏫 KNUST | University of the People
+💬 “Who is like God — Maker of Peace.”
 
 🏁 License
 MIT License © 2025 Agri-Sentio Developers
-
