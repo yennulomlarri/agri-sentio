@@ -10,10 +10,10 @@ It provides secure user authentication, farm management, diagnostic analysis, ta
 Module	Description
 Accounts	Custom user model with JWT authentication (SimpleJWT)
 Farms	Register, manage, and track farms by region, district, and ownership
-Diagnostics	AI-powered crop disease predictions using TensorFlow .h5 model
-Taxonomy	Manages crops, pests, and disease relationships
+Diagnostics: AI-powered crop disease predictions using a TensorFlow h5 model
+Taxonomy	manages crops, pests, and disease relationships
 Analytics	Admin-only endpoints for biosecurity and platform summaries
-Core	Shared utilities including health checks and TensorFlow model loader
+Core	Shared utilities, including health checks and TensorFlow model loader
 ⚙️ Tech Stack
 Backend Framework: Django 5.2 + Django REST Framework
 
@@ -55,7 +55,7 @@ ALLOWED_HOSTS=127.0.0.1,localhost
 DATABASE_URL=sqlite:///db.sqlite3
 ACCESS_TOKEN_LIFETIME=3600
 REFRESH_TOKEN_LIFETIME=86400
-You can also add a public .env.example for reference.
+You can also add a public .env example for reference.
 
 🧠 AI Model Integration
 The TensorFlow integration is handled in core/ml_utils.py.
